@@ -1,8 +1,9 @@
-import React, { useReducer } from 'react'
+import React, {useContext, useReducer } from 'react'
 import classes from './AddTodo.module.css'
 import Card from '../UI/Card'
 import Button from '../UI/Button'
 import ErrorModal from '../UI/ErrorModal'
+import TodoContext from '../../store/todo-context'
 
 const todoReducer = (prevState, action) => {
 	if (action.type === 'TODO_TITLE') {
@@ -40,7 +41,8 @@ const todoReducer = (prevState, action) => {
 	}
 }
 
-const AddTodo = (props) => {
+const AddTodo = () => {
+	const ctxData = useContext(TodoContext)
 	const [todoState, dispatchTodo] = useReducer(todoReducer, {
 		todoTitle: '',
 		date: '',
@@ -71,7 +73,7 @@ const AddTodo = (props) => {
 			completed: false,
 		}
 
-		props.onGetData(data)
+		ctxData.onGetData(data)
 		
 	}
 
